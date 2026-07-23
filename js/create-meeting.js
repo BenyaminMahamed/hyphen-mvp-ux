@@ -11,8 +11,18 @@ function setupAiGenerateButton() {
       return;
     }
 
-    const sentences = notesText.split(".").map(s => s.trim()).filter(Boolean);
-    const summary = `Meeting covered ${sentences.length} key points.`;
+    // Split on line breaks first, then on periods within each line,
+    // so notes written as separate lines (no trailing periods) are
+    // still broken into distinct points rather than treated as one sentence.
+    const sentences = notesText
+      .split(/\n+/)
+      .flatMap(line => line.split("."))
+      .map(s => s.trim())
+      .filter(Boolean);
+
+    const pointWord = sentences.length === 1 ? "key point" : "key points";
+    const summary = `Meeting covered ${sentences.length} ${pointWord}.`;
+
     const actionItems = sentences.filter(s =>
       s.toLowerCase().includes("to") || s.toLowerCase().includes("follow")
     ).slice(0, 5);
