@@ -5,6 +5,8 @@
   --border: #ddd8cf;
   --danger: #9e1b25;
   --success: #2e7d32;
+  --card-bg: #ffffff;
+  --radius: 6px;
 }
 
 * {
@@ -18,13 +20,15 @@ body {
   color: var(--ink);
 }
 
+/* --- Nav --- */
+
 header#nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
   border-bottom: 1px solid var(--border);
-  background: white;
+  background: var(--card-bg);
 }
 
 header#nav .nav-brand {
@@ -35,6 +39,7 @@ header#nav nav a {
   margin-right: 1.25rem;
   color: var(--ink);
   text-decoration: none;
+  font-size: 0.95rem;
 }
 
 header#nav nav a:hover {
@@ -45,6 +50,8 @@ header#nav .nav-user {
   font-size: 0.9rem;
   opacity: 0.75;
 }
+
+/* --- Layout --- */
 
 main {
   padding: 2rem;
@@ -66,6 +73,8 @@ section {
   text-align: center;
 }
 
+/* --- Forms --- */
+
 form label {
   display: block;
   margin-bottom: 1rem;
@@ -73,7 +82,7 @@ form label {
   font-size: 0.9rem;
 }
 
-input, textarea, button, select {
+input, textarea, select {
   width: 100%;
   padding: 0.6rem;
   margin-top: 0.25rem;
@@ -81,43 +90,96 @@ input, textarea, button, select {
   border: 1px solid var(--border);
   border-radius: 4px;
   font-family: inherit;
+  background: var(--card-bg);
+  color: var(--ink);
 }
 
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* --- Buttons ---
+   Primary: solid dark, main actions (Save, Log in).
+   Secondary: outlined, supporting actions (Generate AI preview). */
+
 button {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  font-family: inherit;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
   background: var(--ink);
   color: white;
-  border: none;
-  cursor: pointer;
-  margin-top: 0.5rem;
 }
 
 button:hover {
   opacity: 0.9;
 }
 
-.card {
-  background: white;
+button.secondary {
+  background: transparent;
+  color: var(--ink);
   border: 1px solid var(--border);
-  border-radius: 6px;
+}
+
+button.secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  opacity: 1;
+}
+
+/* --- Cards --- */
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
   padding: 1rem;
   margin-bottom: 0.75rem;
 }
 
 .card h3 {
   margin: 0 0 0.25rem 0;
+  font-size: 1.05rem;
 }
 
-.status-open {
-  color: var(--danger);
-  font-weight: 600;
+/* Links inside cards: styled as understated navigation, not default browser blue */
+.card a {
+  color: var(--ink);
+  text-decoration: none;
 }
 
-.status-completed {
-  color: var(--success);
-  font-weight: 600;
+.card a:hover {
+  color: var(--accent);
+  text-decoration: underline;
 }
 
 .meta {
   font-size: 0.85rem;
   opacity: 0.7;
+  margin: 0;
+}
+
+/* --- Status badges --- */
+
+.status-open,
+.status-completed {
+  font-weight: 600;
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.status-open {
+  color: var(--danger);
+  background: rgba(158, 27, 37, 0.08);
+}
+
+.status-completed {
+  color: var(--success);
+  background: rgba(46, 125, 50, 0.08);
 }
